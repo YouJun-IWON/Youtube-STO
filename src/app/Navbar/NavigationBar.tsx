@@ -80,13 +80,13 @@ export function NavigationMenuBar() {
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="상품 소개">
+              <ListItem href="/" title="상품 소개">
                 상품 간략 소개
               </ListItem>
-              <ListItem href="/docs/installation" title="STO 절차">
+              <ListItem href="/" title="STO 절차">
                 진행 방법 설명
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Contact">
+              <ListItem href="/" title="Contact">
                 연락 및 질문
               </ListItem>
             </ul>
