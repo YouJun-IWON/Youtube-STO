@@ -6,7 +6,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   session: {
     strategy: 'jwt',
   },
@@ -57,9 +57,9 @@ export const authOptions: AuthOptions = {
           throw new Error('Invalid credentials');
         }
 
-        if(!user.active) {
-          throw new Error('user is not active');
-        }
+        // if(!user.active) {
+        //   throw new Error('user is not active');
+        // }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials?.password,
