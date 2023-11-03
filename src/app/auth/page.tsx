@@ -46,7 +46,8 @@ export default function AuthenticationPage() {
           <div className='relative z-20 mt-auto'>
             <blockquote className='space-y-2'>
               <p className='text-lg'>
-                &ldquo;여러분들의 능력 발산의 한계는 오직 여러분들의 능력에 의해서만 정해질 수 있어야 합니다.&rdquo;
+                &ldquo;여러분들의 능력 발산의 한계는 오직 여러분들의 능력에
+                의해서만 정해질 수 있어야 합니다.&rdquo;
               </p>
               <footer className='text-sm'>Team Agenda</footer>
             </blockquote>
@@ -66,14 +67,14 @@ export default function AuthenticationPage() {
             <p className='px-8 text-center text-sm text-muted-foreground'>
               By clicking continue, you agree to our{' '}
               <Link
-                href='#'
+                href='/auth/TermsOfService'
                 className='underline underline-offset-4 hover:text-primary'
               >
                 Terms of Service
               </Link>{' '}
               and{' '}
               <Link
-                href='#'
+                href='/auth/PrivacyPolicy'
                 className='underline underline-offset-4 hover:text-primary'
               >
                 Privacy Policy
