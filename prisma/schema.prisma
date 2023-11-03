@@ -3,105 +3,29 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-}
-
-model account_relationship {
-  id               Int    @id @default(autoincrement())
-  owner_account_id Int?
-  ST_id            Int?
-  size             Float? @db.Float
-}
-
-model accounts {
-  id           Int @id @default(autoincrement())
-  owner_id     Int
-  fiat_balance Int @default(0)
-
-  @@index([owner_id], map: "owner_id")
-}
-
-model channel_status {
-  id   Int     @id @default(autoincrement())
-  type String? @db.VarChar(255)
-}
-
-model order {
-  id                   Int                  @id @default(autoincrement())
-  ST_id                Int
-  price                Float                @db.Float
-  size                 Float                @db.Float
-  timestamp            DateTime             @default(now()) @db.DateTime(0)
-  user_id              Int
-  conclusion_at        DateTime?            @db.Timestamp(0)
-  deleted_at           DateTime?            @db.Timestamp(0)
-  updated_at           DateTime?            @default(now()) @db.Timestamp(0)
-  created_at           DateTime?            @default(now()) @db.Timestamp(0)
-  security_token_offer security_token_offer @relation(fields: [ST_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "order_ibfk_1")
-
-  @@index([ST_id], map: "ST_id")
-  @@index([user_id], map: "order_user_id")
-}
-
-model security_token_offer {
-  id              Int             @id @default(autoincrement())
-  supply          Float           @default(0) @db.Float
-  per_valuation   Int             @default(0)
-  channel_id      Int
-  price           Int             @default(0)
-  order           order[]
-  youtube_channel youtube_channel @relation(fields: [channel_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "security_token_offer_ibfk_1")
-
-  @@index([channel_id], map: "channel_id")
-}
-
-model youtube_channel {
-  id                   Int                    @id @default(autoincrement())
-  handle               String                 @db.VarChar(255)
-  name                 String                 @db.VarChar(255)
-  channel_id           String                 @db.VarChar(255)
-  status_id            Int?
-  created_at           DateTime?              @default(now()) @db.Timestamp(0)
-  security_token_offer security_token_offer[]
-  youtube_videos       youtube_videos[]
-}
-
-model youtube_videos {
-  id              Int             @id @default(autoincrement())
-  owner_id        Int
-  youtube_channel youtube_channel @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "youtube_videos_ibfk_1")
-
-  @@index([owner_id], map: "owner")
-}
-
-model user_temp {
-  id         Int     @id @default(autoincrement())
-  username   String  @db.VarChar(255)
-  name       String  @db.VarChar(255)
-  account_id Int?
-  cash_role_ Int     @default(0) @map("cash(role)")
-  peer_id    Int?
-  email      String? @db.VarChar(255)
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  // Add this
+  relationMode = "prisma"
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId], map: "Account_userId_fkey")
 }
 
 model Session {
@@ -110,16 +34,43 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "Session_userId_fkey")
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id             String          @id @default(cuid())
+  name           String?
+  email          String?         @unique
+  emailVerified  DateTime?
+  active         Boolean         @default(false)
+  image          String?
+  role           String?
+  hashedPassword String?
+  userType       UserType        @default(User)
+  accounts       Account[]
+  sessions       Session[]
+  ActivateToken  ActivateToken[]
+}
+
+model ActivateToken {
+  id    String @id @default(cuid())
+  token String @unique
+
+  activatedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  @@index([userId])
+}
+
+enum UserType {
+  User
+  Admin
+  Youtuber
 }
 
 model VerificationToken {

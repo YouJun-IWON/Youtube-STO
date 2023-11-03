@@ -9,13 +9,18 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
+import { useSession } from 'next-auth/react';
+
 import { useRouter } from 'next/navigation';
 
 import { AlignJustify } from 'lucide-react';
 import Link from 'next/link';
+import LoginAvatar from './LoginAvatar';
 
 const ActionButton = () => {
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   return (
     <div>
@@ -42,12 +47,16 @@ const ActionButton = () => {
       </div>
 
       <div className='hidden md:flex md:space-x-4'>
-        <Button
-          onClick={() => router.push('/auth')}
-          className='text-md bg-red-500'
-        >
-          Sign in
-        </Button>
+        {session && session.user ? (
+          <LoginAvatar />
+        ) : (
+          <Button
+            onClick={() => router.push('/auth')}
+            className='text-md bg-red-500'
+          >
+            Sign in
+          </Button>
+        )}
       </div>
     </div>
   );

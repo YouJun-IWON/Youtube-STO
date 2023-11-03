@@ -4,7 +4,8 @@ import Link from 'next/link';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
-import { UserAuthForm } from '@/app/auth/components/user-auth-form';
+
+import { UserRegisterForm } from './components/user-auth-form';
 
 export const metadata: Metadata = {
   title: 'Authentication',
@@ -57,13 +58,13 @@ export default function AuthenticationPage() {
           <div className='mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]'>
             <div className='flex flex-col space-y-2 text-center'>
               <h1 className='text-2xl font-semibold tracking-tight'>
-                로그인 페이지 입니다.
+                회원가입 페이지 입니다.
               </h1>
               <p className='text-sm text-muted-foreground'>
-                계정을 만들거나 로그인하세요.
+                아래의 절차에 따라 회원가입을 진행하세요.
               </p>
             </div>
-            <UserAuthForm />
+            <UserRegisterForm />
             <p className='px-8 text-center text-sm text-muted-foreground'>
               By clicking continue, you agree to our{' '}
               <Link
