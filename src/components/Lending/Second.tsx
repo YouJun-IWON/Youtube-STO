@@ -1,6 +1,6 @@
 'use client';
 
-import { HiDownload } from 'react-icons/Hi';
+import { HiDownload } from 'react-icons/hi';
 import { features } from '@/constants';
 import Image from 'next/image';
 
