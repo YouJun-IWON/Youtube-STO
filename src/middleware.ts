@@ -13,11 +13,11 @@ export async function middleware(req: NextRequest) {
 
   // Only logged in users can access
   if (pathname.startsWith('/applySTO') && !session) {
-    return NextResponse.redirect(new URL('/auth/login', req.url));
+    return NextResponse.redirect(new URL('/auth', req.url));
   }
 
   if (pathname.startsWith('/market') && !session) {
-    return NextResponse.redirect(new URL('/auth/login', req.url));
+    return NextResponse.redirect(new URL('/auth', req.url));
   }
 
   // if (pathname.startsWith('/MyPage') && !session) {
@@ -26,7 +26,7 @@ export async function middleware(req: NextRequest) {
 
   // Admin
 
-  if (pathname.startsWith('/admin') && (session?.userType !== 'admin')) {
+  if (pathname.startsWith('/admin') && session?.userType !== 'admin') {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
