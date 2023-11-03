@@ -4,7 +4,8 @@ import './globals.css';
 import Navbar from './Navbar/page';
 import Footer from './Footer/page';
 import { Providers } from './providers';
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from '@/components/ui/toaster';
+import Head from 'next/head';
 
 const font = Outfit({ subsets: ['latin'] });
 
