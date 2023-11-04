@@ -13,10 +13,13 @@ import { Label } from '@/components/ui/label';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useToast } from '@/components/ui/use-toast';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const { toast } = useToast();
+
   const {
     register,
     handleSubmit,
@@ -34,8 +37,25 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     console.log(body);
     setIsLoading(true);
     try {
-      signIn('credentials', { ...body, redirect: false });
-      router.push('/');
+      const response = await signIn('credentials', {
+        ...body,
+        redirect: false,
+      });
+
+      console.log(response!.status);
+
+      if (response!.status === 401) {
+        router.push('/auth');
+        toast({
+          title: '로그인 실패',
+          description: '이메일과 비밀번호를 확인하세요.',
+        });
+      } else {
+        router.push('/');
+        toast({
+          description: '로그인 성공',
+        });
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -56,6 +76,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             <Input
               id='email'
               placeholder='name@example.com'
+              required
               type='email'
               {...register('email')}
               autoCapitalize='none'
@@ -70,6 +91,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             </Label>
             <Input
               id='password'
+              required
               placeholder='password'
               type='password'
               {...register('password')}
@@ -80,21 +102,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             />
           </div>
           <div className='flex gap-5 '>
-            <Button disabled={isLoading} className='flex-1'>
+            <Button disabled={isLoading} className='flex-1 mt-2' type='submit'>
               {isLoading && (
                 <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
               )}
               로그인
             </Button>
-            <Button
-              className='flex-1'
-              onClick={() => router.push('/auth/register')}
-            >
-              회원가입
-            </Button>
           </div>
         </div>
       </form>
+      <Button className='flex-1' onClick={() => router.push('/auth/register')}>
+        회원가입
+      </Button>
       <div className='relative'>
         <div className='absolute inset-0 flex items-center'>
           <span className='w-full border-t' />
