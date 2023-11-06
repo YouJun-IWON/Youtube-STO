@@ -126,7 +126,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       </div>
       <Button
         variant='outline'
-        onClick={() => signIn('google')}
+        onClick={() =>
+          signIn('google', {
+            redirect: true,
+            callbackUrl: '/',
+          })
+        }
         type='button'
         disabled={isLoading}
       >

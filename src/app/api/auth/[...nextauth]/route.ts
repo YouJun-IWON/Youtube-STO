@@ -17,17 +17,9 @@ const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      // profile(profile) {
-      //   return {
-      //     id: profile.sub,
-      //     name: `${profile.given_name} ${profile.family_name}`,
-      //     email: profile.email,
-      //     image: profile.picture,
-      //     userType: profile.userType,
-      //   };
-      // },
+      name: 'google',
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
 
     CredentialsProvider({
