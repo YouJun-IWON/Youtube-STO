@@ -1,5 +1,10 @@
+import TotalPage from './TotalChannel/page';
+
 const Market = () => {
-  return <div>market</div>;
+  return <div>
+
+    <TotalPage />
+  </div>;
 };
 
 export default Market;

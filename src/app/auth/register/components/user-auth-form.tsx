@@ -121,22 +121,47 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
 
       console.log(response);
 
+      if (!response.ok) {
+
+        if(response.status === 400) {
+          toast({
+            title: '회원가입 실패',
+            description: '이메일이 이미 존재합니다.',
+          });
+  
+          return router.push('/auth/register');
+        }
+        toast({
+          title: '회원가입 실패',
+          description: response.statusText,
+        });
+
+        return router.push('/auth/register');
+      }
+      toast({
+        title: '회원가입 성공',
+      });
+
       router.push('/auth');
     } catch (err) {
       console.log(err);
+      toast({
+        title: 'Error',
+        description: (
+          <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+            <code className='text-white'>{JSON.stringify(err)}</code>
+          </pre>
+        ),
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
-
-
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
-        <form
-         
-          onSubmit={form.handleSubmit(onSubmit)}
-          className='space-y-4'
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
           <FormField
             control={form.control}
             name='username'
