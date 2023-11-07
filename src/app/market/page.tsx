@@ -1,10 +1,13 @@
 import TotalPage from './TotalChannel/page';
+import Hero from './components/Hero';
 
 const Market = () => {
-  return <div>
-
-    <TotalPage />
-  </div>;
+  return (
+    <div>
+      <Hero />
+      <TotalPage />
+    </div>
+  );
 };
 
 export default Market;

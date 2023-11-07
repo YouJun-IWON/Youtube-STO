@@ -7,12 +7,13 @@ export const taskSchema = z.object({
   title: z.string(),
   image: z.string(),
   price: z.string(),
+  rate: z.number(),
   date: z.string(),
   status: z.string(),
   label: z.string(),
   priority: z.string(),
+  marketCapa: z.string(),
+  transaction: z.string(),
 });
 
 export type Task = z.infer<typeof taskSchema>;
-
-

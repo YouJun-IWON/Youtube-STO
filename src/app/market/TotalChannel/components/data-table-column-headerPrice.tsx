@@ -20,16 +20,12 @@ interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
-  filter?: boolean;
-  number?: boolean;
 }
 
-export function DataTableColumnHeader<TData, TValue>({
-  filter = true,
+export function DataTableColumnHeaderPrice<TData, TValue>({
   column,
   title,
   className,
-  number = false,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
@@ -46,43 +42,28 @@ export function DataTableColumnHeader<TData, TValue>({
           >
             <span>{title}</span>
             {column.getIsSorted() === 'desc' ? (
-              <ArrowDownIcon className='ml-2 h-4 w-4' />
-            ) : column.getIsSorted() === 'asc' ? (
               <ArrowUpIcon className='ml-2 h-4 w-4' />
+            ) : column.getIsSorted() === 'asc' ? (
+              <ArrowDownIcon className='ml-2 h-4 w-4' />
             ) : (
               <CaretSortIcon className='ml-2 h-4 w-4' />
             )}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='start'>
-          {filter && (
-            <>
-              <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-                <ArrowUpIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-                오름차순
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-                <ArrowDownIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-                내림차순
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-            </>
-          )}
-          {number && (
-            <>
-              <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-                <ArrowUpIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-                높은 순
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-                <ArrowDownIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-                낮은 순
-              </DropdownMenuItem>
+          <>
+            <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+              <ArrowUpIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
+              높은 순
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+              <ArrowDownIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
+              낮은 순
+            </DropdownMenuItem>
 
-              <DropdownMenuSeparator />
-            </>
-          )}
-        
+            <DropdownMenuSeparator />
+          </>
+
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
             <EyeNoneIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
             Hide
