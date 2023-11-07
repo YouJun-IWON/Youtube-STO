@@ -188,7 +188,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'priority',
     header: ({ column }) => (
-      <DataTableColumnHeader filter={false} column={column} title='Priority' />
+      <DataTableColumnHeader filter={false} column={column} title='조회수 Flow' />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(

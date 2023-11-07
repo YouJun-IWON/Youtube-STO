@@ -6,6 +6,8 @@ import {
 } from '@radix-ui/react-icons';
 import { Column } from '@tanstack/react-table';
 
+
+
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,6 +24,7 @@ interface DataTableColumnHeaderProps<TData, TValue>
   title: string;
   filter?: boolean;
   number?: boolean;
+
 }
 
 export function DataTableColumnHeader<TData, TValue>({
@@ -30,6 +33,7 @@ export function DataTableColumnHeader<TData, TValue>({
   title,
   className,
   number = false,
+
 }: DataTableColumnHeaderProps<TData, TValue>) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
@@ -82,7 +86,7 @@ export function DataTableColumnHeader<TData, TValue>({
               <DropdownMenuSeparator />
             </>
           )}
-        
+
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
             <EyeNoneIcon className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
             Hide
