@@ -6,13 +6,16 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   session: {
     strategy: 'jwt',
   },
   jwt: {
     secret: process.env.JWT_SECRET,
     maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  pages: {
+    signIn: '/auth',
   },
   adapter: PrismaAdapter(prisma),
   providers: [

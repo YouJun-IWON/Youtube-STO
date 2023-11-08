@@ -1,14 +1,20 @@
+import { User } from '@prisma/client'
 import ActionButton from './ActionButton'
 import Logo from './Logo'
 import {NavigationMenuBar} from './NavigationBar'
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: User | null
+}
+
+
+const Navbar = ({currentUser}: NavbarProps) => {
   return (
     <div className='flex justify-between items-center px-10 border-b'>
 
       <Logo />
       <NavigationMenuBar />
-      <ActionButton />
+      <ActionButton currentUser={currentUser}/>
       
     </div>
   )

@@ -17,7 +17,7 @@ import {
   Users,
 } from 'lucide-react';
 
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 import {
   DropdownMenu,
@@ -33,25 +33,25 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { User as UserSession } from '@prisma/client';
 
-const LoginAvatar = () => {
+interface NavbarProps {
+  currentUser?: UserSession | null;
+}
 
-  const { data: session } = useSession();
-
-  console.log(session);
-  
+const LoginAvatar = ({ currentUser }: NavbarProps) => {
   return (
     <div>
       {' '}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Avatar>
-            <AvatarImage src={session?.user.image ?? ''} alt='@avatar' />
-        <AvatarFallback>{session?.user.name ?? ''}</AvatarFallback>
+            <AvatarImage src={currentUser?.image ?? ''} alt='@avatar' />
+            <AvatarFallback>{currentUser?.name ?? ''}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className='w-56'>
-          <DropdownMenuLabel>{session?.user.name ?? ''}</DropdownMenuLabel>
+          <DropdownMenuLabel>{currentUser?.name ?? ''}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
