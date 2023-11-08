@@ -3,7 +3,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
 
 import { labels, priorities, statuses } from '../data/data';
 import { Task } from '../data/schema';
@@ -44,16 +43,40 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
-    accessorKey: 'title',
+    accessorKey: 'label',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='테마 / 유튜브명' />
+      <DataTableColumnHeader filter={false} column={column} title='테마' />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
+      const label = labels.find(
+        (label) => label.value === row.getValue('label')
+      );
+
+      if (!label) {
+        return null;
+      }
 
       return (
         <div className='flex space-x-2'>
           {label && <Badge variant='outline'>{label.label}</Badge>}
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: 'title',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='유튜브명' />
+    ),
+    cell: ({ row }) => {
+      // const label = labels.find((label) => label.value === row.original.label);
+
+      return (
+        <div className='flex space-x-2'>
+          {/* {label && <Badge variant='outline'>{label.label}</Badge>} */}
           <span className='max-w-[500px] truncate font-medium'>
             {row.getValue('title')}
           </span>
@@ -133,7 +156,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className='flex space-x-2'>
           <span className='max-w-[500px] truncate font-medium'>
-          ≈ {Number(formattedPrice).toLocaleString()} 원
+            ≈ {Number(formattedPrice).toLocaleString()} 원
           </span>
         </div>
       );
@@ -152,7 +175,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className='flex space-x-2'>
           <span className='max-w-[500px] truncate font-medium'>
-          {Number(formattedPrice).toLocaleString()} 원
+            {Number(formattedPrice).toLocaleString()} 원
           </span>
         </div>
       );
@@ -188,7 +211,11 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: 'priority',
     header: ({ column }) => (
-      <DataTableColumnHeader filter={false} column={column} title='조회수 Flow' />
+      <DataTableColumnHeader
+        filter={false}
+        column={column}
+        title='조회수 Flow'
+      />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(

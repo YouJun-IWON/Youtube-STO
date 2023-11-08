@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DataTableViewOptions } from './data-table-view-options' 
 
-import { priorities, statuses } from "../data/data"
+import { priorities, statuses, labels } from "../data/data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 
 interface DataTableToolbarProps<TData> {
@@ -33,15 +33,22 @@ export function DataTableToolbar<TData>({
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="전체"
+            title="상태"
             options={statuses}
           />
         )}
         {table.getColumn("priority") && (
           <DataTableFacetedFilter
             column={table.getColumn("priority")}
-            title="카테고리"
+            title="조회수 Flow"
             options={priorities}
+          />
+        )}
+         {table.getColumn("label") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("label")}
+            title="테마"
+            options={labels}
           />
         )}
         {isFiltered && (
