@@ -11,7 +11,7 @@ const Partners = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex: any) =>
-        prevIndex === Alliance.length - 1 ? 0 : prevIndex + 1
+        prevIndex === Alliance?.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
 

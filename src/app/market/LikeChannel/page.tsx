@@ -5,12 +5,12 @@ import LikeCard from './components/LikeCard';
 
 const LikeChannel = ({data}: any) => {
 
-  const isDataEmpty = !Array.isArray(data) || data.length < 1 || !data;
+  const isDataEmpty = !Array.isArray(data) || data?.length < 1 || !data;
 
 
   const [sortedData, setSortedData] = useState([]);
 
-  const likedData = data.filter((d: any) => d.like == 1).slice(0, 8);
+  const likedData = data?.filter((d: any) => d.like == 1).slice(0, 8);
 
   
 
