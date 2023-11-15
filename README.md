@@ -36,4 +36,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 ## Create dummy data
-npx ts-node src/app/market/TotalChannel/data/seed.ts
+npx ts-node src/data/seed.ts

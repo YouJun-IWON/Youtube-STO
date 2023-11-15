@@ -4,8 +4,8 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { Badge } from '@/components/ui/badge';
 
-import { labels, priorities, statuses } from '../data/data';
-import { Task } from '../data/schema';
+import { labels, priorities, statuses } from '@/data/data';
+import { Data } from '@/data/schema';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -15,11 +15,11 @@ import { Button } from '@nextui-org/react';
 import { Icons } from '@/components/icons';
 import { DataTableColumnHeaderPrice } from './data-table-column-headerPrice';
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<Data>[] = [
   // {
   //   accessorKey: "id",
   //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="Task" />
+  //     <DataTableColumnHeader column={column} title="Data" />
   //   ),
   //   cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
   //   enableSorting: false,
@@ -97,7 +97,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className='flex space-x-2'>
           <span className='max-w-[500px] truncate font-medium'>
-            {Number(formattedPrice)} 원
+            {Number(formattedPrice).toLocaleString()} 원
           </span>
         </div>
       );
@@ -126,14 +126,14 @@ export const columns: ColumnDef<Task>[] = [
               `${formattedPrice * rate} 원`
             ) : rate > 0 ? (
               <span style={{ color: 'red' }} className='flex'>
-                +{((formattedPrice * rate) / 100).toFixed(2)} 원 (+
+                +{Number(((formattedPrice * rate) / 100).toFixed(0)).toLocaleString()} 원 (+
                 {rate}
                 %)
                 <Icons.up className='ml-2 h-4 w-3' />
               </span>
             ) : (
               <span style={{ color: 'blue' }} className='flex'>
-                {((formattedPrice * rate) / 100).toFixed(2)} 원 ({rate}
+                {Number(((formattedPrice * rate) / 100).toFixed(0)).toLocaleString()} 원 ({rate}
                 %)
                 <Icons.down className='ml-2 h-4 w-3' />
               </span>
@@ -239,37 +239,31 @@ export const columns: ColumnDef<Task>[] = [
       return value.includes(row.getValue(id));
     },
   },
-
-  {
-    id: 'select',
-
-    cell: ({ row }) => (
-      <Button
-        isIconOnly
-        className='text-default-900/60 data-[hover]:bg-foreground/10 translate-y-[2px] translate-x-2'
-        radius='full'
-        variant='light'
-        onPress={row.getToggleSelectedHandler()}
-      >
-        <HeartIcon
-          className={row.getIsSelected() ? '[&>path]:stroke-transparent' : ''}
-          fill={row.getIsSelected() ? 'red' : 'none'}
-        />
-      </Button>
-
-      // <Checkbox
-      //   checked={row.getIsSelected()}
-      //   onCheckedChange={(value) => row.toggleSelected(!!value)}
-      //   aria-label="Select row"
-      //   className="translate-y-[2px]"
-      // />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
   // {
-  //   id: "actions",
-  //   cell: ({ row }) => <DataTableRowActions row={row} />,
+  //   accessorKey: 'like',
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Button
+  //         isIconOnly
+  //         className='text-default-900/60 data-[hover]:bg-foreground/10 translate-y-[2px] translate-x-2'
+  //         radius='full'
+  //         variant='light'
+  //         onPress={() => console.log(row.getValue('id'))}
+  //       >
+  //         <HeartIcon
+  //           className={
+  //             row.getValue('like') ? '[&>path]:stroke-transparent' : ''
+  //           }
+  //           fill={row.getValue('like') ? 'red' : 'none'}
+  //         />
+  //       </Button>
+  //     );
+  //   },
+  //   enableSorting: false,
+  //   enableHiding: false,
   // },
+  {
+    id: "actions",
+    cell: ({ row }) => <DataTableRowActions row={row} />,
+  },
 ];

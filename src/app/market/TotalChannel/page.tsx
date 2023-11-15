@@ -1,13 +1,9 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+
 import { Metadata } from 'next';
-import Image from 'next/image';
-import { z } from 'zod';
 
 import { columns } from './components/columns';
 import { DataTable } from './components/data-table';
 
-import { taskSchema } from './data/schema';
 
 
 export const metadata: Metadata = {
@@ -15,20 +11,8 @@ export const metadata: Metadata = {
   description: 'A page where you can buy and sell YouTubers’ STOs.',
 };
 
-// Simulate a database read for tasks.
-async function getTasks() {
+export default async function TotalPage({data}: any) {
 
-  const data = await fs.readFile(
-    path.join(process.cwd(), 'src/app/market/TotalChannel/data/tasks.json')
-  );
-
-  const tasks = JSON.parse(data.toString());
-
-  return z.array(taskSchema).parse(tasks);
-}
-
-export default async function TotalPage() {
-  const tasks = await getTasks();
 
   return (
     <>
@@ -44,7 +28,7 @@ export default async function TotalPage() {
             </p>
           </div>
         </div>
-        <DataTable data={tasks} columns={columns} />
+        <DataTable data={data} columns={columns} />
       </div>
     </>
   );
