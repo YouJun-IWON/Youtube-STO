@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from 'react';
+import Link from 'next/link';
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils';
 
 import {
   NavigationMenu,
@@ -13,8 +13,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import Logo from './Logo'
+} from '@/components/ui/navigation-menu';
+import Logo from './Logo';
 
 // const components: { title: string; href: string; description: string }[] = [
 //   {
@@ -57,36 +57,35 @@ import Logo from './Logo'
 export function NavigationMenuBar() {
   return (
     <NavigationMenu>
-      <NavigationMenuList
-      className='hidden md:flex md:space-x-4'
-      >
+      <NavigationMenuList className='hidden md:flex md:space-x-4'>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
+            <ul className='grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
+              <li className='row-span-3'>
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
+                    className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md'
+                    href='/'
                   >
-                    <Logo/>
-                    <div className="mb-2 mt-4 text-lg font-medium">
+                    <Logo />
+                    <div className='mb-2 mt-4 text-lg font-medium'>
                       Youtube STO
                     </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      유튜버들의 광고수익권을 STO로 발행하고 사고 팔 수 있는 플랫폼이다.
+                    <p className='text-sm leading-tight text-muted-foreground'>
+                      유튜버들의 광고수익권을 STO로 발행하고 사고 팔 수 있는
+                      플랫폼이다.
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/" title="상품 소개">
+              <ListItem href='/' title='상품 소개'>
                 상품 간략 소개
               </ListItem>
-              <ListItem href="/" title="STO 절차">
+              <ListItem href='/' title='STO 절차'>
                 진행 방법 설명
               </ListItem>
-              <ListItem href="/" title="Contact">
+              <ListItem href='/' title='Contact'>
                 연락 및 질문
               </ListItem>
             </ul>
@@ -108,28 +107,42 @@ export function NavigationMenuBar() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem> */}
-          <NavigationMenuItem>
-          <Link href="/applySTO" legacyBehavior passHref>
+        <NavigationMenuItem>
+          <Link href='/applySTO' legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               STO 신청하기
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/market" legacyBehavior passHref>
+          <Link href='/market' legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              STO Market
+              STO 거래소
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href='/STOFlow' legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              STO 동향
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href='/serviceCenter' legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              고객센터
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -137,18 +150,18 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <div className='text-sm font-medium leading-none'>{title}</div>
+          <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
             {children}
           </p>
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = 'ListItem';

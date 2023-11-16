@@ -34,12 +34,12 @@ const ActionButton = ({ currentUser }: NavbarProps) => {
             <SheetHeader>
               <SheetDescription>
                 <div className='flex flex-col space-y-4 items-center w-full text-lg text-black mt-10'>
-                  <Link href='/auth'>Sign in</Link>
-                  <Link href='/'>STO Register</Link>
-                  <Link href='/'>STO Market</Link>
-                  <Link href='/'>상품소개</Link>
-                  <Link href='/'>STO 절차</Link>
-                  <Link href='/'>Contact</Link>
+                  <Link href='/auth'>로그인</Link>
+                  <Link href='/applySTO'>STO 신청하기</Link>
+                  <Link href='/market'>STO Market</Link>
+                  <Link href='/STOFlow'>STO 동향</Link>
+                  <Link href='/serviceCenter'>고객센터</Link>
+                  {/* <Link href='/'>My Page</Link> */}
                 </div>
               </SheetDescription>
             </SheetHeader>

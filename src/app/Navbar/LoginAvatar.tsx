@@ -35,11 +35,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { User as UserSession } from '@prisma/client';
 
+import { useRouter } from 'next/navigation';
+
 interface NavbarProps {
   currentUser?: UserSession | null;
 }
 
 const LoginAvatar = ({ currentUser }: NavbarProps) => {
+  const router = useRouter();
   return (
     <div>
       {' '}
@@ -54,21 +57,20 @@ const LoginAvatar = ({ currentUser }: NavbarProps) => {
           <DropdownMenuLabel>{currentUser?.name ?? ''}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/MyPage')}>
               <User className='mr-2 h-4 w-4' />
-              <span>Profile</span>
-              {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCard className='mr-2 h-4 w-4' />
-              <span>Billing</span>
+              <span>My Page</span>
               {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/MyPage/Account')}>
+              <CreditCard className='mr-2 h-4 w-4' />
+              <span>입출금</span>
+            </DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <Settings className='mr-2 h-4 w-4' />
               <span>Settings</span>
-              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-            </DropdownMenuItem>
+             
+            </DropdownMenuItem> */}
             {/* <DropdownMenuItem>
             <Keyboard className="mr-2 h-4 w-4" />
             <span>Keyboard shortcuts</span>
@@ -77,11 +79,13 @@ const LoginAvatar = ({ currentUser }: NavbarProps) => {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Users className='mr-2 h-4 w-4' />
+            <DropdownMenuItem
+              onClick={() => router.push('/MyPage/MyYoutubers')}
+            >
+              <Youtube className='mr-2 h-4 w-4' />
               <span>My Youtubers</span>
             </DropdownMenuItem>
-            <DropdownMenuSub>
+            {/* <DropdownMenuSub>
               <DropdownMenuSubTrigger>
                 <UserPlus className='mr-2 h-4 w-4' />
                 <span>Invite users</span>
@@ -103,26 +107,19 @@ const LoginAvatar = ({ currentUser }: NavbarProps) => {
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
-            </DropdownMenuSub>
+            </DropdownMenuSub> */}
             {/* <DropdownMenuItem>
             <Plus className="mr-2 h-4 w-4" />
             <span>New Team</span>
             <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
           </DropdownMenuItem> */}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <Youtube className='mr-2 h-4 w-4' />
-            <span>Youtube</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push('/MyPage/MySTO')}>
             <LifeBuoy className='mr-2 h-4 w-4' />
             <span>My STO</span>
           </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <Cloud className='mr-2 h-4 w-4' />
-            <span>API</span>
-          </DropdownMenuItem>
+
           <DropdownMenuSeparator />
           <DropdownMenuItem className='text-red-500' onClick={() => signOut()}>
             <LogOut className='mr-2 h-4 w-4' />
