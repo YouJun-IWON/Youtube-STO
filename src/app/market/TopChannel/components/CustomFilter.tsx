@@ -1,5 +1,4 @@
-import React from "react";
-import {Tabs, Tab, Chip} from "@nextui-org/react";
+import {Tabs, Tab} from "@nextui-org/react";
 
 
 export default function CustomFilter({selected, setSelected}: any) {

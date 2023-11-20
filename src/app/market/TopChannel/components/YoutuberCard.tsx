@@ -4,11 +4,14 @@ import { HeartIcon } from '@/components/svgs/heartIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Data } from '@/data/schema';
 import { Button, Card, CardBody, CardFooter, Chip } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 
 import React from 'react';
 
 const YoutuberCard = ({ data, rank }: any) => {
   // const cardStyle = rank < 3 ? "top-rank-style" : "default-style";
+
+  const router = useRouter();
 
   const cardData: Data = { ...data };
 
@@ -24,6 +27,8 @@ const YoutuberCard = ({ data, rank }: any) => {
       isBlurred
       className='border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]'
       shadow='md'
+      isPressable
+      onPress={() => router.push(`market/${data.id}`)}
     >
       <CardBody>
         <div className='data-card'>
