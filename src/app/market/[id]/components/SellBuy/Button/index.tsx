@@ -23,7 +23,7 @@ export default function Button({ isActive, toggleMenu }: any) {
             toggleMenu();
           }}
         >
-          <PerspectiveText label='거래 생성 중단하기' />
+          <PerspectiveText label='STO 거래 종료하기' />
         </div>
       </motion.div>
     </div>
