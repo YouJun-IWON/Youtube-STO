@@ -20,6 +20,8 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
+import { perspective, slideIn } from './anim';
+import { motion } from 'framer-motion';
 
 const profileFormSchema = z.object({
   buyPrice: z
@@ -78,10 +80,29 @@ export function Buy() {
     });
   }
 
+                //       <motion.div
+          
+                //   custom={1}
+                //   variants={perspective}
+                //   initial='initial'
+                //   animate='enter'
+                //   exit='exit'
+                // >
+                
+                // </motion.div>
+
   const buyPrice = watch('buyPrice', 0); // Provide a default value
   const buyAmount = watch('buyAmount', 0); // Provide a default value
 
   return (
+    <motion.div
+          
+    custom={1}
+    variants={perspective}
+    initial='initial'
+    animate='enter'
+    exit='exit'
+  >
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5 '>
         <div className='flex flex-between text-[14px] text-white font-semibold'>
@@ -204,5 +225,7 @@ export function Buy() {
         </div>
       </form>
     </Form>
+    </motion.div>
+
   );
 }
