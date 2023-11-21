@@ -2,6 +2,7 @@ import YoutuberInfo from './components/YoutuberInfo';
 
 import Rule from './components/Rule';
 import OrderBook from './(orderbook)/OrderBook';
+import SellBuy from './components/SellBuy';
 
 const page = ({ params }: { params: { id: number } }) => {
   console.log('id', params.id);
@@ -13,6 +14,7 @@ const page = ({ params }: { params: { id: number } }) => {
         <OrderBook />
         
       </div>
+      <SellBuy />
     </section>
   );
 };

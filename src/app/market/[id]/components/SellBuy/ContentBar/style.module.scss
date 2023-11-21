@@ -1,0 +1,36 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 100px 40px 50px 40px;
+  height: 100%;
+  box-sizing: border-box;
+  .body {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    .linkContainer {
+      perspective: 120px;
+      perspective-origin: bottom;
+    }
+    span {
+      text-decoration: none;
+      color: black;
+      font-size: 46px;
+    }
+  }
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    span {
+      width: 25%;
+      
+      text-align: center; /* Center text horizontally */
+    }
+  }
+  .radio-group .radio-button .text {
+    font-size: 20px;  /* Change as per your requirement */
+  }
+}
