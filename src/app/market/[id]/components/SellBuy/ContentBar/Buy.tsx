@@ -80,152 +80,155 @@ export function Buy() {
     });
   }
 
-                //       <motion.div
-          
-                //   custom={1}
-                //   variants={perspective}
-                //   initial='initial'
-                //   animate='enter'
-                //   exit='exit'
-                // >
-                
-                // </motion.div>
+  //       <motion.div
+
+  //   custom={1}
+  //   variants={perspective}
+  //   initial='initial'
+  //   animate='enter'
+  //   exit='exit'
+  // >
+
+  // </motion.div>
 
   const buyPrice = watch('buyPrice', 0); // Provide a default value
   const buyAmount = watch('buyAmount', 0); // Provide a default value
 
   return (
     <motion.div
-          
-    custom={1}
-    variants={perspective}
-    initial='initial'
-    animate='enter'
-    exit='exit'
-  >
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5 '>
-        <div className='flex flex-between text-[14px] text-white font-semibold'>
-          <p>주문 구분</p>
-          <div className='flex items-center space-x-2 rtl'>
-            <RadioGroup defaultValue='comfortable' className='flex '>
-              <div className='flex items-center space-x-2'>
-                <RadioGroupItem
-                  className='bg-white  '
-                  value='default'
-                  id='r1'
-                />
-                <Label htmlFor='r1'>지정가</Label>
-              </div>
-              <div className='flex items-center space-x-2'>
-                <RadioGroupItem
-                  className='bg-white  '
-                  value='comfortable'
-                  id='r2'
-                />
-                <Label htmlFor='r2'>시장가</Label>
-              </div>
-              <div className='flex items-center space-x-2'>
-                <RadioGroupItem
-                  className='bg-white  '
-                  value='compact'
-                  id='r3'
-                />
-                <Label htmlFor='r3'>예약-지정가</Label>
-              </div>
-            </RadioGroup>
+      custom={1}
+      variants={perspective}
+      initial='initial'
+      animate='enter'
+      exit='exit'
+    >
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5 '>
+          <div className='flex flex-between text-[14px] text-white font-semibold'>
+            <p>주문 구분</p>
+            <div className='flex items-center space-x-2 rtl'>
+              <RadioGroup defaultValue='comfortable' className='flex '>
+                <div className='flex items-center space-x-2'>
+                  <RadioGroupItem
+                    className='bg-white  '
+                    value='default'
+                    id='r1'
+                  />
+                  <Label htmlFor='r1'>지정가</Label>
+                </div>
+                <div className='flex items-center space-x-2'>
+                  <RadioGroupItem
+                    className='bg-white  '
+                    value='comfortable'
+                    id='r2'
+                  />
+                  <Label htmlFor='r2'>시장가</Label>
+                </div>
+                <div className='flex items-center space-x-2'>
+                  <RadioGroupItem
+                    className='bg-white  '
+                    value='compact'
+                    id='r3'
+                  />
+                  <Label htmlFor='r3'>예약-지정가</Label>
+                </div>
+              </RadioGroup>
+            </div>
           </div>
-        </div>
 
-        <div className='flex flex-between items-center text-[14px] text-white font-semibold'>
-          <p>주문가능 (KRW)</p>
-          <p>10,000,000 ￦</p>
-        </div>
-        <FormField
-          control={form.control}
-          name='buyPrice'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className='text-white'>매수가격 (KRW)</FormLabel>
-              <FormControl>
-                <Input
-                  type='number'
-                  {...field}
-                  onChange={(e) => field.onChange(Number(e.target.value))}
-                />
-              </FormControl>
+          <div className='flex flex-between items-center text-[14px] text-white font-semibold'>
+            <p>주문가능 (KRW)</p>
+            <p>10,000,000 ￦</p>
+          </div>
+          <FormField
+            control={form.control}
+            name='buyPrice'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='text-white'>매수가격 (KRW)</FormLabel>
+                <FormControl>
+                  <Input
+                    type='number'
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(Number(e.target.value));
+                    }}
+                  />
+                </FormControl>
 
-              <FormMessage className='text-white' />
-            </FormItem>
-          )}
-        />
+                <FormMessage className='text-white' />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name='buyAmount'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className='text-white'>주문수량</FormLabel>
-              <FormControl>
-                <Input
-                  type='number'
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(Number(e.target.value));
-                    setValue('totalPrice', buyPrice * buyAmount);
-                  }}
-                />
-              </FormControl>
+          <FormField
+            control={form.control}
+            name='buyAmount'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='text-white'>주문수량</FormLabel>
+                <FormControl>
+                  <Input
+                    type='number'
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(Number(e.target.value));
+                    }}
+                  />
+                </FormControl>
 
-              <FormMessage className='text-white' />
-            </FormItem>
-          )}
-        />
+                <FormMessage className='text-white' />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name='totalPrice'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className='text-white'>주문총액 (KRW)</FormLabel>
-              <FormControl>
-                <Input
-                  disabled
-                  className='disabled:opacity-100'
-                  type='number'
-                  {...field}
-                  value={Number(buyPrice * buyAmount)}
-                />
-              </FormControl>
-              <FormDescription className='text-white'>
-                ∙ 최소주문금액: 5000 ￦ ∙ 수수료(부가세 포함): 0.05%
-              </FormDescription>
-              <FormMessage className='text-white' />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name='totalPrice'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='text-white'>주문총액 (KRW)</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled
+                    className='disabled:opacity-100'
+                    type='number'
+                    {...field}
+                    value={Number(buyPrice * buyAmount)}
+                  />
+                </FormControl>
+                <FormDescription className='text-white'>
+                  ∙ 최소주문금액: 5000 ￦ ∙ 수수료(부가세 포함): 0.05%
+                </FormDescription>
+                <FormMessage className='text-white' />
+              </FormItem>
+            )}
+          />
 
-        <div className='grid grid-cols-4 gap-2'>
-          <Button
-            className='bg-white text-black hover:bg-slate-300'
-            type='button'
-            onClick={() =>
-              reset({
-                buyPrice: 0,
-                buyAmount: 0,
-                totalPrice: 0,
-              })
-            }
-          >
-            초기화
-          </Button>
-          <Button type='submit' className='col-span-3'>
-            매수
-          </Button>
-        </div>
-      </form>
-    </Form>
+          <div className='grid grid-cols-4 gap-2'>
+            <Button
+              className='bg-white text-black hover:bg-slate-300'
+              type='button'
+              onClick={() =>
+                reset({
+                  buyPrice: 0,
+                  buyAmount: 0,
+                  totalPrice: 0,
+                })
+              }
+            >
+              초기화
+            </Button>
+            <Button
+              type='submit'
+              onClick={() => setValue('totalPrice', buyPrice * buyAmount)}
+              className='col-span-3'
+            >
+              매수
+            </Button>
+          </div>
+        </form>
+      </Form>
     </motion.div>
-
   );
 }

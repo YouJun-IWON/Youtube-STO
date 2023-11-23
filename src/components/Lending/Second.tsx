@@ -17,7 +17,7 @@ flex  justify-center pb-10
     '
       >
         <div className='p-5 justify-center '>
-          <p className='p-3 text-lg font-bold text-indigo-600'>What is</p>
+         
           <div
             className='
             bg-gradient-to-r
@@ -29,7 +29,6 @@ flex  justify-center pb-10
             md:text-6xl
             font-bold
             pb-10
-            
             '
           >
             유튜브 채널 증권이 뭐에요?
