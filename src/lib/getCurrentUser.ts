@@ -10,6 +10,8 @@ export default async function getCurrentUser() {
   try {
     const session = await getSession();
 
+   
+
     if (!session?.user.email) {
       return null;
     }
@@ -24,7 +26,9 @@ export default async function getCurrentUser() {
       return null;
     }
 
-    return currentUser;
+    const testUser = {...currentUser, won: 5349939, sto: 10}
+
+    return testUser;
   } catch (err) {
     return null;
   }

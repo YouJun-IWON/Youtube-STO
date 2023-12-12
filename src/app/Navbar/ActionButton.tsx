@@ -51,6 +51,7 @@ const ActionButton = ({ currentUser }: NavbarProps) => {
         {currentUser && currentUser.email ? (
           <LoginAvatar currentUser={currentUser} />
         ) : (
+          // <LoginAvatar currentUser={currentUser} />
           <Button
             onClick={() => router.push('/auth')}
             className='text-md bg-red-500'

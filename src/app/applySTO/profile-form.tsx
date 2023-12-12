@@ -58,8 +58,8 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
-  urls: [{ value: 'youtube link' }, { value: 'other link' }],
+  bio: '',
+  urls: [{ value: '유튜브 채널 url' }],
 };
 
 export function ProfileForm() {
@@ -75,6 +75,8 @@ export function ProfileForm() {
   });
 
   function onSubmit(data: ProfileFormValues) {
+
+    console.log(data)
     toast({
       title: 'You submitted the following values:',
       description: (
@@ -117,14 +119,14 @@ export function ProfileForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value='m@example.com'>로그인한 사용자의 이메일이 들어갑니다.@example.com</SelectItem>
-                  <SelectItem value='m@google.com'>select 문으로 이메일을 넣게하면 STO발행자로 하여금 실제 본인이 주로 쓰고 있는 이메일로 가입을 하도록 유도할 수 있습니다.</SelectItem>
-                  <SelectItem value='m@support.com'>m@support.com</SelectItem>
+                  <SelectItem value='tndhworl1998@gmail.com'>
+                    tndhworl1998@gmail.com
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
-                이 이메일은 본인인증과 추후 알람에 사용되므로 자주 사용하는 이메일로 진행할 것을 추천합니다.{' '}
-                
+                이 이메일은 본인인증과 추후 알람에 사용되므로 자주 사용하는
+                이메일로 진행할 것을 추천합니다.{' '}
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -178,12 +180,12 @@ export function ProfileForm() {
             variant='outline'
             size='sm'
             className='mt-2'
-            onClick={() => append({ value: '' })}
+            onClick={() => append({ value: '그 외의 링크' })}
           >
-            Add URL
+            URL 추가하기
           </Button>
         </div>
-        <Button type='submit'>저장하기</Button>
+        <Button type='submit'>신청하기</Button>
       </form>
     </Form>
   );

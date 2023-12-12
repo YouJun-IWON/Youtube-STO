@@ -70,6 +70,9 @@ export function Buy() {
   const { watch, reset, setValue } = form;
 
   function onSubmit(data: ProfileFormValues) {
+
+    const setData = {...data, email: "lujinven@gmail.com", stoId: "493843"}
+    console.log(setData);
     toast({
       title: '당신의 계약 내용은 다음과 같습니다.',
       description: (

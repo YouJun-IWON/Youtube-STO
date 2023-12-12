@@ -2,6 +2,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Transaction from './Transaction';
 
+
 import BasicInfo from './BasicInfo';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
@@ -40,7 +41,7 @@ const OrderBook = () => {
             기본 정보
           </TabsTrigger>
         </TabsList>
-        <TabsContent value='transaction' >
+        <TabsContent value='transaction'>
           <Transaction />
           <Rule />
         </TabsContent>
@@ -49,7 +50,7 @@ const OrderBook = () => {
           <FilterDeal />
           <Deal />
         </TabsContent>
-        <TabsContent value='basicinfo' >
+        <TabsContent value='basicinfo'>
           <BasicInfo />
         </TabsContent>
       </Tabs>

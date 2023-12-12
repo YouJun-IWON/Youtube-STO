@@ -6,7 +6,7 @@ import Footer from './Footer/page';
 import { Providers } from './providers';
 import { Toaster } from '@/components/ui/toaster';
 import Head from 'next/head';
-import getCurrentUser from './actions/getCurrentUser';
+import getCurrentUser from '../lib/getCurrentUser';
 
 const font = Outfit({ subsets: ['latin'] });
 
@@ -20,13 +20,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   const currentUser = await getCurrentUser();
+
+  console.log('currentUser', currentUser);
   return (
     <html lang='en'>
       <body className={font.className}>
         <Providers>
-          <Navbar currentUser={currentUser}/>
+          <Navbar currentUser={currentUser} />
           {children}
           <Footer />
           <Toaster />

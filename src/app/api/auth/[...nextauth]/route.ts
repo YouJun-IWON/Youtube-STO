@@ -8,19 +8,20 @@ import bcrypt from 'bcryptjs';
 
 export const authOptions: AuthOptions = {
   session: {
-    strategy: 'jwt',
-  },
-  jwt: {
-    secret: process.env.JWT_SECRET,
+    strategy: 'database',
     maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
   },
+  // jwt: {
+  //   secret: process.env.JWT_SECRET,
+  //   maxAge: 30 * 24 * 60 * 60, // 30 days
+  // },
   pages: {
     signIn: '/auth',
   },
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      name: 'google',
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
@@ -71,12 +72,11 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     // strategy 를 database로 할 경우 삭제해야 한다.
-    async jwt({ token, user }) {
-      return { ...token, ...user };
-    },
-    async session({ session, token }) {
-      session.user = token;
-
+    // async jwt({ token, user }) {
+    //   return { ...token, ...user };
+    // },
+    async session({ session, user }) {
+      // session = {...user};
       return session;
     },
   },

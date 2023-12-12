@@ -10,7 +10,6 @@ import am5locales_ko_KR from '@amcharts/amcharts5/locales/ko_KR';
 const MarketPrice = () => {
   useLayoutEffect(() => {
     const root = am5.Root.new('chartdiv');
-
     root.setThemes([am5themes_Animated.new(root)]);
 
     const stockChart = root.container.children.push(
@@ -116,13 +115,16 @@ const MarketPrice = () => {
     });
 
     // color columns by stock rules
-    volumeSeries.columns.template.adapters.add('fill', function (fill, target) {
-      let dataItem = target.dataItem;
-      if (dataItem) {
-        return stockChart.getVolumeColor(dataItem);
+    volumeSeries.columns.template.adapters.add(
+      'fill',
+      function (fill: any, target: any) {
+        let dataItem = target.dataItem;
+        if (dataItem) {
+          return stockChart.getVolumeColor(dataItem);
+        }
+        return fill;
       }
-      return fill;
-    });
+    );
 
     stockChart.set('volumeSeries', volumeSeries);
     valueLegend.data.setAll([valueSeries, volumeSeries]);
@@ -306,19 +308,23 @@ const MarketPrice = () => {
 
     root.locale = am5locales_ko_KR;
     root.language.setTranslationsAny({
-      "Increase": "증가",
-      "Decrease": "감소",
-      "Save": "적용",
-      "Cancel": "취소",
-      "Indicators": "지표들",
-      "Draw": "그리기"
+      Increase: '증가',
+      Decrease: '감소',
+      Save: '적용',
+      Cancel: '취소',
+      Indicators: '지표들',
+      Draw: '그리기',
     });
 
     return () => {
-      if (root !== null) root.dispose();
-      stockChart.dispose();
+      if (root && root.container) {
+        root.dispose();
+      }
+
+      if (stockChart) {
+        stockChart.dispose();
+      }
     };
-    // if (root !== null) root.dispose();
   }, []);
 
   return (
@@ -327,7 +333,7 @@ const MarketPrice = () => {
         id='chartcontrols'
         style={{ height: 'auto', padding: '5px 45px 0 15px' }}
       ></div>
-      <div id='chartdiv' style={{ width: '100%', height: '500px' }} ></div>
+      <div id='chartdiv' style={{ width: '100%', height: '500px' }}></div>
     </>
   );
 };
