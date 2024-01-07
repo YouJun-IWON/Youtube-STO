@@ -5,17 +5,15 @@ import Partners from '@/components/lending/Partners';
 import Second from '@/components/lending/Second';
 import Third from '@/components/lending/Third';
 
-
 export default function Home() {
   return (
-   <main>
-    <Hero />
-    <Partners />
-    <Second />
-    <Third />
-    <Feature />
-    <Fourth />
-    
-   </main>
-  )
+    <main>
+      <Hero />
+      <Partners />
+      <Second />
+      <Third />
+      <Feature />
+      <Fourth />
+    </main>
+  );
 }
