@@ -49,7 +49,9 @@ export function UserRegisterForm() {
     startTransition(() => {
       register(values).then((data) => {
         if (data.error) {
-          setError(data.error);
+          if (data) {
+            setError(data.error);
+          }
         } else {
           router.replace('/auth');
         }

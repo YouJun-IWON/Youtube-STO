@@ -50,7 +50,9 @@ export function UserAuthForm() {
 
     startTransition(() => {
       login(values).then((data) => {
-        setError(data.error);
+        if (data) {
+          setError(data.error);
+        }
       });
     });
   };
