@@ -317,13 +317,12 @@ const MarketPrice = () => {
     });
 
     return () => {
-      if (root && root.container) {
+      if (root !== null) {
         root.dispose();
       }
 
-      if (stockChart) {
         stockChart.dispose();
-      }
+      
     };
   }, []);
 

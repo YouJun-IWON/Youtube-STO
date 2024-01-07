@@ -12,7 +12,6 @@ const page = ({ params }: { params: { id: number } }) => {
       <div className='mx-auto max-w-4xl  lg:py-3'>
         <YoutuberInfo />
         <OrderBook />
-        
       </div>
       <SellBuy />
     </section>

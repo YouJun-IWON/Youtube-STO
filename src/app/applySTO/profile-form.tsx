@@ -75,15 +75,16 @@ export function ProfileForm() {
   });
 
   function onSubmit(data: ProfileFormValues) {
-
-    console.log(data)
+    console.log(data);
     toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      title: '신청 완료',
+      description:
+        '가치 산정 Protocol과 다양한 검증을 통해 합리적인 결과를 추후 알려드겠습니다.',
+      // description: (
+      //   <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+      //     <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
+      //   </pre>
+      // ),
     });
   }
 

@@ -9,20 +9,19 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  type              String
+  provider          String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  userId            String
+  providerAccountId String
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -30,14 +29,13 @@ model Account {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
   expires      DateTime
+  userId       String
+  sessionToken String   @unique
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
-
 
 model VerificationToken {
   identifier String
@@ -63,7 +61,7 @@ model User {
   invitation_code String?
   active          Boolean        @default(false)
   identification  String?
-  hashedPassword String?         @db.Text
+  hashedPassword  String?        @db.Text
   accounts        Account[]
   sessions        Session[]
 
@@ -73,9 +71,11 @@ model User {
 
 model ActiveOrder {
   id           Int      @id @default(autoincrement())
-  order_id     Int?
+  order_id     Int
   remain_qty   Float?   @db.Float
   updated_time DateTime @default(now()) @db.Timestamp(0)
+
+  @@index([order_id], map: "ActiveOrder_order_id_fkey")
 }
 
 model Announcement {
@@ -143,7 +143,7 @@ model SecurityToken {
 
 model SecurityTokenOffer {
   id              Int                        @id @default(autoincrement())
-  st_id           Int?
+  st_id           Int                        @unique
   pct             Float?                     @db.Float
   per             Float?                     @db.Float
   offer_price     Int?
@@ -167,20 +167,22 @@ model Setting {
 
 model Wallet {
   addr         String @id @default("") @db.VarChar(64)
-  owner_id     Int
+  owner_id     String @unique
   fiat_balance Int    @default(0)
 
   @@index([owner_id], map: "owner_id")
 }
 
 model WalletRelationship {
-  id                Int    @id @default(autoincrement())
-  owner_wallet_addr String @db.VarChar(64)
-  st_id             Int
-  qty               Float  @db.Float
+  id                   Int    @id @default(autoincrement())
+  owner_wallet_addr    String @db.VarChar(64)
+  st_id                Int
+  qty                  Float  @db.Float
+  securityTokenOfferId Int?
 
   @@index([owner_wallet_addr], map: "owner_wallet_addr")
   @@index([st_id], map: "st_id")
+  @@index([securityTokenOfferId], map: "WalletRelationship_securityTokenOfferId_fkey")
 }
 
 model YoutubeChannel {

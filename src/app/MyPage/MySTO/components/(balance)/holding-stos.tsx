@@ -27,7 +27,7 @@ export function RecentSales() {
 
       <div className="flex items-center">
         <Avatar className="h-9 w-9">
-          <AvatarImage src="/avatars/01.png" alt="Avatar" />
+          <AvatarImage src="https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/288.jpg" alt="Avatar" />
           <AvatarFallback>Ho</AvatarFallback>
         </Avatar>
         <div className="ml-4 space-y-1">
