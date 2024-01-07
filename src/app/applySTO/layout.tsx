@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { Separator } from '@/components/ui/separator';
 
-import { SidebarNav } from '@/app/applySTO/components/sidebar-nav';
+import { SidebarNav } from '@/app/applySTO/_components/sidebar-nav';
 
 export const metadata: Metadata = {
   title: 'Apply for STO',

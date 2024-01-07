@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import Overview from './components/(overview)/Overview';
-import Balance from './components/(balance)/Balance';
-import History from './components/(history)/History';
-import OpenOrders from './components/(openOrders)/OpenOrders';
-import PendingDW from './components/(pendingDW)/PendingDW';
+import Overview from './_components/(overview)/Overview';
+import Balance from './_components/(balance)/Balance';
+import History from './_components/(history)/History';
+import OpenOrders from './_components/(openOrders)/OpenOrders';
+import PendingDW from './_components/(pendingDW)/PendingDW';
 
 export const metadata: Metadata = {
   title: 'My STO',
@@ -29,18 +29,10 @@ export default function DashboardPage() {
           <Tabs defaultValue='overview' className='space-y-4'>
             <TabsList>
               <TabsTrigger value='overview'>Overview</TabsTrigger>
-              <TabsTrigger value='Balance' >
-                보유자산
-              </TabsTrigger>
-              <TabsTrigger value='History' >
-                거래내역
-              </TabsTrigger>
-              <TabsTrigger value='OpenOrders' >
-                미체결
-              </TabsTrigger>
-              <TabsTrigger value='PendingDW' >
-                입출금대기
-              </TabsTrigger>
+              <TabsTrigger value='Balance'>보유자산</TabsTrigger>
+              <TabsTrigger value='History'>거래내역</TabsTrigger>
+              <TabsTrigger value='OpenOrders'>미체결</TabsTrigger>
+              <TabsTrigger value='PendingDW'>입출금대기</TabsTrigger>
             </TabsList>
             <TabsContent value='overview' className='space-y-4'>
               <Overview />

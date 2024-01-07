@@ -2,16 +2,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Transaction from './Transaction';
 
-
 import BasicInfo from './BasicInfo';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
-import Rule from '../components/Rule';
+import Rule from '../_components/Rule';
 import Deal from './Deal';
 import FilterDeal from './FilterDeal';
 
 const OrderBook = () => {
-
   const MarketPrice = dynamic(
     // @ts-ignore
     () => import('./MarketPrice'),
@@ -47,6 +45,11 @@ const OrderBook = () => {
         </TabsContent>
         <TabsContent value='marketprice'>
           <MarketPrice />
+          <div
+            id='chartcontrols'
+            style={{ height: 'auto', padding: '5px 45px 0 15px' }}
+          ></div>
+          <div id='chartdiv' style={{ width: '100%', height: '500px' }}></div>
           <FilterDeal />
           <Deal />
         </TabsContent>

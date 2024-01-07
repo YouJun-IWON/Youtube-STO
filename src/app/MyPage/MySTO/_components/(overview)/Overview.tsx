@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-import { OverviewText } from '@/app/MyPage/MySTO/components/(overview)/overview-text';
-import { RecentSales } from '@/app/MyPage/MySTO/components/(overview)/recent-sales';
+import { OverviewText } from '@/app/MyPage/MySTO/_components/(overview)/overview-text';
+import { RecentSales } from '@/app/MyPage/MySTO/_components/(overview)/recent-sales';
 
 const Overview = () => {
   return (

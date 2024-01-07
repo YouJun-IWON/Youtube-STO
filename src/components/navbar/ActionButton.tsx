@@ -17,11 +17,13 @@ import LoginAvatar from './LoginAvatar';
 import { User } from '@prisma/client';
 
 interface NavbarProps {
-  currentUser?: User | null;
+  currentUser?: any | null;
 }
 
 const ActionButton = ({ currentUser }: NavbarProps) => {
   const router = useRouter();
+
+  console.log('ActionButton', currentUser);
 
   return (
     <div>
@@ -48,8 +50,8 @@ const ActionButton = ({ currentUser }: NavbarProps) => {
       </div>
 
       <div className='hidden md:flex md:space-x-4'>
-        {currentUser && currentUser.email ? (
-          <LoginAvatar currentUser={currentUser} />
+        {currentUser?.user && currentUser?.user.email ? (
+          <LoginAvatar currentUser={currentUser.user} />
         ) : (
           // <LoginAvatar currentUser={currentUser} />
           <Button

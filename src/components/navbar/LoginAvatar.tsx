@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Cloud,
@@ -17,8 +16,6 @@ import {
   Users,
 } from 'lucide-react';
 
-import { signOut } from 'next-auth/react';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,9 +33,10 @@ import {
 import { User as UserSession } from '@prisma/client';
 
 import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
 interface NavbarProps {
-  currentUser?: UserSession | null;
+  currentUser?: any | null;
 }
 
 const LoginAvatar = ({ currentUser }: NavbarProps) => {

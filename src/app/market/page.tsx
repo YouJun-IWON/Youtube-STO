@@ -1,7 +1,7 @@
 
 import TopChannel from './TopChannel/page';
 import TotalPage from './TotalChannel/page';
-import Hero from './components/Hero';
+import Hero from './_components/Hero';
 import { examples } from '@/data/example';
 import { dataSchema } from '@/data/schema';
 import { promises as fs } from 'fs';

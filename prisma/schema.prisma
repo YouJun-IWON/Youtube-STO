@@ -27,29 +27,11 @@ model Account {
   @@index([userId])
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  expires      DateTime
-  userId       String
-  sessionToken String   @unique
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
 model User {
   id              String         @id @default(cuid())
   name            String?
   email           String?        @unique
-  emailVerified  DateTime?
+  email_verified  DateTime?
   image           String?
   role            User_role?
   user_type       User_user_type @default(User)
@@ -61,13 +43,11 @@ model User {
   invitation_code String?
   active          Boolean        @default(false)
   identification  String?
-  hashedPassword  String?        @db.Text
+  password        String?        @db.Text
   accounts        Account[]
-  sessions        Session[]
 
   @@index([wallet_addr], map: "wallet_addr")
 }
-
 
 model ActiveOrder {
   id           Int      @id @default(autoincrement())
@@ -138,7 +118,7 @@ model SecurityToken {
   qty_tick      Int?
   channel_id    Int?
 
-  @@index([channel_id], map: "channel_id")
+  @@index([channel_id], map: "chßannel_id")
 }
 
 model SecurityTokenOffer {
@@ -174,15 +154,14 @@ model Wallet {
 }
 
 model WalletRelationship {
-  id                   Int    @id @default(autoincrement())
-  owner_wallet_addr    String @db.VarChar(64)
-  st_id                Int
-  qty                  Float  @db.Float
-  securityTokenOfferId Int?
+  id                Int    @id @default(autoincrement())
+  owner_wallet_addr String @db.VarChar(64)
+  st_id             Int
+  qty               Float  @db.Float
 
+  @@unique([owner_wallet_addr, st_id])
   @@index([owner_wallet_addr], map: "owner_wallet_addr")
   @@index([st_id], map: "st_id")
-  @@index([securityTokenOfferId], map: "WalletRelationship_securityTokenOfferId_fkey")
 }
 
 model YoutubeChannel {
@@ -212,10 +191,10 @@ model YoutubeVideos {
 
 model Trade {
   id             Int       @id @default(autoincrement())
-  make_order_id  Int?
   qty            Float?    @db.Float
   time           DateTime? @db.Timestamp(0)
   price          Float?    @db.Float
+  make_order_id  Int?
   taker_order_id Int?
 
   @@index([make_order_id], map: "make_order_id")

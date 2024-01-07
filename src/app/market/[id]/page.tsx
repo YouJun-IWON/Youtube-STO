@@ -1,8 +1,8 @@
-import YoutuberInfo from './components/YoutuberInfo';
+import YoutuberInfo from './_components/YoutuberInfo';
 
-import Rule from './components/Rule';
+import Rule from './_components/Rule';
 import OrderBook from './(orderbook)/OrderBook';
-import SellBuy from './components/SellBuy';
+import SellBuy from './_components/SellBuy';
 
 const page = ({ params }: { params: { id: number } }) => {
   console.log('id', params.id);

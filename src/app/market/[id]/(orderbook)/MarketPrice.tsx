@@ -7,6 +7,8 @@ import { data } from './example';
 
 import am5locales_ko_KR from '@amcharts/amcharts5/locales/ko_KR';
 
+//const myTheme = am5.Theme.new(root);
+
 const MarketPrice = () => {
   useLayoutEffect(() => {
     const root = am5.Root.new('chartdiv');
@@ -317,22 +319,21 @@ const MarketPrice = () => {
     });
 
     return () => {
-      if (root !== null) {
-        root.dispose();
-      }
-
-        stockChart.dispose();
-      
+      // if (root !== null) {
+      //   root.dispose();
+      // }
+      // stockChart.dispose();
+      // root.dispose();
     };
   }, []);
 
   return (
     <>
-      <div
+      {/* <div
         id='chartcontrols'
         style={{ height: 'auto', padding: '5px 45px 0 15px' }}
       ></div>
-      <div id='chartdiv' style={{ width: '100%', height: '500px' }}></div>
+      <div id='chartdiv' style={{ width: '100%', height: '500px' }}></div> */}
     </>
   );
 };

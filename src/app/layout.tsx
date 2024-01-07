@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import './globals.css';
-import Navbar from './Navbar/page';
-import Footer from './Footer/page';
+import Navbar from '../components/navbar/page';
+import Footer from '../components/footer/page';
 import { Providers } from './providers';
 import { Toaster } from '@/components/ui/toaster';
 import Head from 'next/head';
-import getCurrentUser from '../lib/getCurrentUser';
+import { auth } from '@/auth';
 
 const font = Outfit({ subsets: ['latin'] });
 
@@ -20,14 +20,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
+  const session = await auth();
 
-  console.log('currentUser', currentUser);
+  console.log('currentUser', session);
   return (
     <html lang='en'>
       <body className={font.className}>
         <Providers>
-          <Navbar currentUser={currentUser} />
+          <Navbar currentUser={session} />
           {children}
           <Footer />
           <Toaster />

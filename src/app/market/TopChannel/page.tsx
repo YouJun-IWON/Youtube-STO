@@ -1,9 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 
-import CustomFilter from './components/CustomFilter';
+import CustomFilter from './_components/CustomFilter';
 import { Data } from '@/data/schema';
-import YoutuberCard from './components/YoutuberCard';
+import YoutuberCard from './_components/YoutuberCard';
 
 const TopChannel = ({ data }: any) => {
   const isDataEmpty = !Array.isArray(data) || data?.length < 1 || !data;

@@ -1,7 +1,7 @@
 'use client'
 import { Data } from '@/data/schema';
 import React, { useState } from 'react'
-import LikeCard from './components/LikeCard';
+import LikeCard from './_components/LikeCard';
 
 const LikeChannel = ({data}: any) => {
 
