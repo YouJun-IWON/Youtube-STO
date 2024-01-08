@@ -24,7 +24,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           <div className='relative z-20 mt-auto'>
             <blockquote className='space-y-2'>
               <p className='text-lg'>
-                &ldquo;여러분들의 능력 발산의 한계는 오직 여러분들의 능력에
+                &ldquo;여러분의 한계는 오직 여러분의 능력에
                 의해서만 정해질 수 있어야 합니다.&rdquo;
               </p>
               <footer className='text-sm'>Team Agenda</footer>

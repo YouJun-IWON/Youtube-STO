@@ -1,10 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-
 import { useState, useTransition } from 'react';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { useForm } from 'react-hook-form';
@@ -32,9 +32,18 @@ import {
 import { LoginSchema } from '@/schemas';
 import { FormError } from './form-error';
 import { login } from '@/actions/login';
+import Social from './social';
+import { FormSuccess } from './form-success';
 
 export function UserAuthForm() {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? '이미 존재하는 이메일 입니다.'
+      : '';
+
   const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -47,13 +56,26 @@ export function UserAuthForm() {
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError('');
+    setSuccess('');
 
     startTransition(() => {
-      login(values).then((data) => {
-        if (data) {
-          setError(data.error);
-        }
-      });
+      login(values)
+        .then((data) => {
+          if (data?.error) {
+            form.reset();
+            setError(data.error);
+          }
+
+          if (data?.success) {
+            form.reset();
+            setSuccess(data.success);
+          }
+
+          // if (data?.twoFactor) {
+          //   setShowTwoFactor(true);
+          // }
+        })
+        .catch(() => setError('Something went wrong'));
     });
   };
 
@@ -97,6 +119,7 @@ export function UserAuthForm() {
                       disabled={isPending}
                     />
                   </FormControl>
+
                   <FormMessage />
                 </FormItem>
               )}
@@ -104,7 +127,8 @@ export function UserAuthForm() {
           </div>
 
           <div className='flex flex-col gap-5 '>
-            <FormError message={error} />
+            <FormError message={error || urlError} />
+            <FormSuccess message={success} />
             <Button disabled={isPending} className='flex-1 mt-2' type='submit'>
               {isPending && (
                 <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
@@ -124,7 +148,7 @@ export function UserAuthForm() {
         </Link>
 
         <Link
-          href='/auth/TermsOfService'
+          href='/auth/reset'
           className='underline underline-offset-4 hover:text-primary '
         >
           아이디/비밀번호 찾기
@@ -140,7 +164,11 @@ export function UserAuthForm() {
         </div>
       </div>
 
-      <div className='grid grid-cols-3 gap-8'>
+      <div className='flex flex-col text-center gap-1 font-semibold'>
+        <Social isPending={isPending} />
+      </div>
+
+      {/* <div className='grid grid-cols-3 gap-8'>
         <div className='flex flex-col text-center gap-1 font-semibold'>
           <Button
             variant='outline'
@@ -206,7 +234,7 @@ export function UserAuthForm() {
           </Button>
           <p>Naver</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

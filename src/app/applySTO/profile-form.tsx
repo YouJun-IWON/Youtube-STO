@@ -29,6 +29,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 
 import { toast } from '@/components/ui/use-toast';
+import { auth } from '@/auth';
 
 const profileFormSchema = z.object({
   username: z
@@ -74,19 +75,31 @@ export function ProfileForm() {
     control: form.control,
   });
 
-  function onSubmit(data: ProfileFormValues) {
+  const onSubmit = async (data: ProfileFormValues) => {
+    // const session = await auth();
+
+   
+
     console.log(data);
     toast({
       title: '신청 완료',
       description:
         '가치 산정 Protocol과 다양한 검증을 통해 합리적인 결과를 추후 알려드겠습니다.',
-      // description: (
-      //   <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-      //     <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-      //   </pre>
-      // ),
     });
-  }
+
+    await fetch(`http://35.226.148.114:3004/sto/mint`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: 'clr3m6m5f0006v0zom48t61x4',
+        stId: '5',
+        offerPrice: 50000,
+        offerQty: 1000,
+      }),
+    });
+  };
 
   return (
     <Form {...form}>

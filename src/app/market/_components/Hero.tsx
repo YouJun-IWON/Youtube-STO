@@ -34,7 +34,7 @@ const Hero = () => {
           친근하고 무궁한 가능성에 투자하세요
         </h1>
         <p className='mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 '>
-          ~~~~~ 법에 준수하여 여러분들의 투자를 안전하게 보호합니다.
+          ~~~~~ 법에 준수하여 여러분의 투자를 안전하게 보호합니다.
         </p>
       </div>
     </section>

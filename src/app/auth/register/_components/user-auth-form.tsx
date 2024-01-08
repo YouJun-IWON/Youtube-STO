@@ -23,15 +23,14 @@ import { registerSchema } from '@/schemas';
 import { register } from '@/actions/register';
 import { useState, useTransition } from 'react';
 import { FormError } from '../../_components/form-error';
-import { useRouter } from 'next/navigation';
+import { FormSuccess } from '../../_components/form-success';
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 export function UserRegisterForm() {
   const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
   const [isPending, startTransition] = useTransition();
-
-  const router = useRouter();
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -49,11 +48,9 @@ export function UserRegisterForm() {
     startTransition(() => {
       register(values).then((data) => {
         if (data.error) {
-          if (data) {
-            setError(data.error);
-          }
-        } else {
-          router.replace('/auth');
+          setError(data.error);
+        } else if (data.success) {
+          setSuccess(data.success);
         }
       });
     });
@@ -139,6 +136,7 @@ export function UserRegisterForm() {
           />
 
           <FormError message={error} />
+          <FormSuccess message={success} />
 
           <Button
             type='submit'

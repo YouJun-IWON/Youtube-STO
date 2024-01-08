@@ -2,6 +2,18 @@
 
 import * as z from 'zod';
 
+export const NewPasswordSchema = z.object({
+  password: z.string().min(12, {
+    message: '최소 12자 이상이어야 합니다.',
+  }),
+});
+
+export const ResetSchema = z.object({
+  email: z.string().email({
+    message: '이메일을 입력해주세요.',
+  }),
+});
+
 export const LoginSchema = z.object({
   email: z
     .string({

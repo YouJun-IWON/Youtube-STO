@@ -27,13 +27,30 @@ model Account {
   @@index([userId])
 }
 
+model VerificationToken {
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id String @id @default(cuid())
+  email String
+  token String @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
 model User {
   id              String         @id @default(cuid())
   name            String?
   email           String?        @unique
-  email_verified  DateTime?
+  emailVerified   DateTime?
   image           String?
-  role            User_role?
   user_type       User_user_type @default(User)
   username        String?
   wallet_addr     String?        @db.VarChar(64)
@@ -205,12 +222,6 @@ enum YoutubeChannel_status {
   ONSALE
   TRANSFER
   SOLDOUT
-}
-
-enum User_role {
-  User
-  Admin
-  Youtuber
 }
 
 enum User_user_type {
