@@ -1,4 +1,5 @@
-import { useLayoutEffect } from 'react';
+'use client';
+import { useRef, useLayoutEffect, useEffect } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import * as am5stock from '@amcharts/amcharts5/stock';
@@ -10,8 +11,11 @@ import am5locales_ko_KR from '@amcharts/amcharts5/locales/ko_KR';
 //const myTheme = am5.Theme.new(root);
 
 const MarketPrice = () => {
+  const rootRef = useRef(null);
+
   useLayoutEffect(() => {
-    const root = am5.Root.new('chartdiv');
+    if (!rootRef.current) return;
+    const root = am5.Root.new(rootRef.current);
     root.setThemes([am5themes_Animated.new(root)]);
 
     const stockChart = root.container.children.push(
@@ -319,21 +323,21 @@ const MarketPrice = () => {
     });
 
     return () => {
-      // if (root !== null) {
-      //   root.dispose();
-      // }
-      // stockChart.dispose();
-      // root.dispose();
+      if (root) root.dispose();
     };
   }, []);
 
   return (
     <>
-      {/* <div
+      <div
         id='chartcontrols'
         style={{ height: 'auto', padding: '5px 45px 0 15px' }}
       ></div>
-      <div id='chartdiv' style={{ width: '100%', height: '500px' }}></div> */}
+      <div
+        id='chartdiv'
+        ref={rootRef}
+        style={{ width: '100%', height: '500px' }}
+      ></div>
     </>
   );
 };

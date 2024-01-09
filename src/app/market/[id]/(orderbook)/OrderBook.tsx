@@ -2,6 +2,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Transaction from './Transaction';
 
+import * as am5 from '@amcharts/amcharts5';
+
 import BasicInfo from './BasicInfo';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
@@ -15,6 +17,8 @@ const OrderBook = () => {
     () => import('./MarketPrice'),
     { loading: () => <p>loading...</p>, ssr: false }
   );
+
+  
 
   return (
     <div>
@@ -45,11 +49,7 @@ const OrderBook = () => {
         </TabsContent>
         <TabsContent value='marketprice'>
           <MarketPrice />
-          <div
-            id='chartcontrols'
-            style={{ height: 'auto', padding: '5px 45px 0 15px' }}
-          ></div>
-          <div id='chartdiv' style={{ width: '100%', height: '500px' }}></div>
+        
           <FilterDeal />
           <Deal />
         </TabsContent>
