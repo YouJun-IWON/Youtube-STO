@@ -16,10 +16,17 @@ const MarketPrice = () => {
   useLayoutEffect(() => {
     if (!rootRef.current) return;
     const root = am5.Root.new(rootRef.current);
-    root.setThemes([am5themes_Animated.new(root)]);
+
+    const myTheme = am5.Theme.new(root);
+
+    myTheme.rule('Grid', ['scrollbar', 'minor']).setAll({
+      visible: false,
+    });
+
+    root.setThemes([am5themes_Animated.new(root), myTheme]);
 
     const stockChart = root.container.children.push(
-      am5stock.StockChart.new(root, {})
+      am5stock.StockChart.new(root, { paddingRight: 0 })
     );
 
     root.numberFormatter.set('numberFormat', '#,###.00');
@@ -47,22 +54,42 @@ const MarketPrice = () => {
 
     const dateAxis = mainPanel.xAxes.push(
       am5xy.GaplessDateAxis.new(root, {
+        extraMax: 0.1,
         baseInterval: {
-          timeUnit: 'day',
+          timeUnit: 'minute',
           count: 1,
         },
-        groupData: true,
-        renderer: am5xy.AxisRendererX.new(root, {}),
+        renderer: am5xy.AxisRendererX.new(root, {
+          pan: 'zoom',
+          minorGridEnabled: true,
+        }),
         tooltip: am5.Tooltip.new(root, {}),
       })
     );
 
+    // add range which will show current value
+    let currentValueDataItem = valueAxis.createAxisRange(
+      valueAxis.makeDataItem({ value: 0 })
+    );
+    let currentLabel = currentValueDataItem.get('label');
+    if (currentLabel) {
+      currentLabel.setAll({
+        fill: am5.color(0xffffff),
+        background: am5.Rectangle.new(root, { fill: am5.color(0x000000) }),
+      });
+    }
+
+    let currentGrid = currentValueDataItem.get('grid');
+    if (currentGrid) {
+      currentGrid.setAll({ strokeOpacity: 0.5, strokeDasharray: [2, 5] });
+    }
+
     // Add series
     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-    const valueSeries = mainPanel.series.push(
+    let valueSeries = mainPanel.series.push(
       am5xy.CandlestickSeries.new(root, {
-        name: '** STO',
-        clustered: false, //!
+        name: 'AMCH',
+        clustered: false,
         valueXField: 'Date',
         valueYField: 'Close',
         highValueYField: 'High',
@@ -73,7 +100,7 @@ const MarketPrice = () => {
         yAxis: valueAxis,
         legendValueText:
           'open: [bold]{openValueY}[/] high: [bold]{highValueY}[/] low: [bold]{lowValueY}[/] close: [bold]{valueY}[/]',
-        legendRangeValueText: '', //!
+        legendRangeValueText: '',
       })
     );
 
@@ -85,6 +112,16 @@ const MarketPrice = () => {
       })
     );
     valueLegend.data.setAll([valueSeries]);
+
+    mainPanel.set(
+      'cursor',
+      am5xy.XYCursor.new(root, {
+        yAxis: valueAxis,
+        xAxis: dateAxis,
+        snapToSeries: [valueSeries],
+        snapToSeriesBy: 'y!',
+      })
+    );
 
     let volumeAxisRenderer = am5xy.AxisRendererY.new(root, {
       inside: true,
@@ -154,17 +191,20 @@ const MarketPrice = () => {
     );
     stockChart.toolsContainer.children.push(scrollbar);
 
-    const sbDateAxis = scrollbar.chart.xAxes.push(
+    let sbDateAxis = scrollbar.chart.xAxes.push(
       am5xy.GaplessDateAxis.new(root, {
+        extraMax: 0.1,
         baseInterval: {
-          timeUnit: 'day',
+          timeUnit: 'minute',
           count: 1,
         },
-        renderer: am5xy.AxisRendererX.new(root, {}),
+        renderer: am5xy.AxisRendererX.new(root, {
+          minorGridEnabled: true,
+        }),
       })
     );
 
-    const sbValueAxis = scrollbar.chart.yAxes.push(
+    let sbValueAxis = scrollbar.chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: am5xy.AxisRendererY.new(root, {}),
       })
@@ -187,6 +227,128 @@ const MarketPrice = () => {
     // Set up series type switcher
     // -------------------------------------------------------------------------------
     // https://www.amcharts.com/docs/v5/charts/stock/toolbar/series-type-control/
+
+    // Data generator
+    let firstDate = new Date();
+    let lastDate;
+    let value = 1200;
+
+    // data
+    function generateChartData() {
+      let chartData = [];
+
+      for (var i = 0; i < 50; i++) {
+        let newDate = new Date(firstDate);
+        newDate.setMinutes(newDate.getMinutes() - i);
+
+        value += Math.round(
+          (Math.random() < 0.49 ? 1 : -1) * Math.random() * 10
+        );
+
+        let open = value + Math.round(Math.random() * 16 - 8);
+        let low = Math.min(value, open) - Math.round(Math.random() * 5);
+        let high = Math.max(value, open) + Math.round(Math.random() * 5);
+
+        chartData.unshift({
+          Date: newDate.getTime(),
+          Close: value,
+          Open: open,
+          Low: low,
+          High: high,
+        });
+
+        lastDate = newDate;
+      }
+      return chartData;
+    }
+
+    let data = generateChartData();
+
+    // set data to all series
+    valueSeries.data.setAll(data);
+    sbSeries.data.setAll(data);
+
+    // update data
+    let previousDate;
+
+    setInterval(function () {
+      let valueSeries: any = stockChart.get('stockSeries');
+      let date = Date.now();
+      let lastDataObject: any = valueSeries.data.getIndex(
+        valueSeries.data.length - 1
+      );
+      if (lastDataObject) {
+        let previousDate = lastDataObject.Date;
+        let previousValue = lastDataObject.Close;
+
+        value = am5.math.round(
+          previousValue + (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2,
+          2
+        );
+
+        let high = lastDataObject.High;
+        let low = lastDataObject.Low;
+        let open = lastDataObject.Open;
+
+        if (am5.time.checkChange(date, previousDate, 'minute')) {
+          open = value;
+          high = value;
+          low = value;
+
+          let dObj1 = {
+            Date: date,
+            Close: value,
+            Open: value,
+            Low: value,
+            High: value,
+          };
+
+          valueSeries.data.push(dObj1);
+          sbSeries.data.push(dObj1);
+          previousDate = date;
+        } else {
+          if (value > high) {
+            high = value;
+          }
+
+          if (value < low) {
+            low = value;
+          }
+
+          let dObj2 = {
+            Date: date,
+            Close: value,
+            Open: open,
+            Low: low,
+            High: high,
+          };
+
+          valueSeries.data.setIndex(valueSeries.data.length - 1, dObj2);
+          sbSeries.data.setIndex(sbSeries.data.length - 1, dObj2);
+        }
+        // update current value
+        if (currentLabel) {
+          currentValueDataItem.animate({
+            key: 'value',
+            to: value,
+            duration: 500,
+            easing: am5.ease.out(am5.ease.cubic),
+          });
+          currentLabel.set(
+            'text',
+            stockChart.getNumberFormatter().format(value)
+          );
+          let bg = currentLabel.get('background');
+          if (bg) {
+            if (value < open) {
+              bg.set('fill', root.interfaceColors.get('negative'));
+            } else {
+              bg.set('fill', root.interfaceColors.get('positive'));
+            }
+          }
+        }
+      }
+    }, 1000);
 
     let seriesSwitcher = am5stock.SeriesTypeControl.new(root, {
       stockChart: stockChart,
