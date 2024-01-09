@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input';
 
 import { cn } from '@/lib/utils';
 import { registerSchema } from '@/schemas';
-import { register } from '@/actions/register';
+import { register } from '@/auth-actions/register';
 import { useState, useTransition } from 'react';
 import { FormError } from '../../_components/form-error';
 import { FormSuccess } from '../../_components/form-success';

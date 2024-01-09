@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { db } from './lib/db';
 import authConfig from '@/auth.config';
 import { getUserById } from './data/user';
+import { getTwoFactorConfirmationByUserId } from './data/two-factor-confirmation';
 import { User_user_type } from '@prisma/client';
 
 export const {
@@ -38,17 +39,32 @@ export const {
   callbacks: {
     async signIn({ user, account }) {
       // Allow OAuth without email verification
-      if (account?.provider !== "credentials") {
+      if (account?.provider !== 'credentials') {
         return true;
       }
       const existingUser = await getUserById(user.id);
 
       // Prevent sign in without email verification
-      if( !existingUser || !existingUser.emailVerified ) {
-
+      if (!existingUser || !existingUser.emailVerified) {
         // Add 2FA check
 
         return false;
+      }
+
+      if (!existingUser.isTwoFactorEnabled) {
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id
+        );
+
+        console.log({ twoFactorConfirmation });
+
+        if (!twoFactorConfirmation) {
+          return false;
+        }
+
+        await db.twoFactorConfirmation.delete({
+          where: { id: twoFactorConfirmation.id },
+        });
       }
 
       return true;
@@ -56,10 +72,6 @@ export const {
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
-      }
-
-      if (token.user_type && session.user) {
-        session.user.user_type = token.user_type as User_user_type;
       }
 
       if (token.user_type && session.user) {

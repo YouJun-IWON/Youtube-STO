@@ -27,7 +27,7 @@ import {
 
 import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
-import { dataSchema } from '@/data/schema';
+import { dataSchema } from '@/test/data-schema';
 import { useRouter } from 'next/navigation';
 
 interface DataTableProps<TData, TValue> {

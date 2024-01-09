@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { BeatLoader } from 'react-spinners';
 import { useSearchParams } from 'next/navigation';
 
-import { newVerification } from '@/actions/new-verification';
+import { newVerification } from '@/auth-actions/new-verification';
 import { FormError } from '../../_components/form-error';
 import { FormSuccess } from '../../_components/form-success';
 

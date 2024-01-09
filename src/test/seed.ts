@@ -29,7 +29,6 @@ fs.writeFileSync(
 
 console.log('✅ Tasks data generated.');
 
-
 // : player1Deck.split(',').length === 7 &&
 //         player2Deck.split(',').length === 7 &&
 //         centerDeck.split(',').length === 37 &&
@@ -51,8 +50,7 @@ console.log('✅ Tasks data generated.');
 //             conversationId: conversation.id,
 //           }}
 //         />
-//       ) 
-
+//       )
 
 //        {player1Deck === '' &&
 //       player2Deck === '' &&
@@ -75,7 +73,5 @@ console.log('✅ Tasks data generated.');
 //           }}
 //         />
 //       ) :
-
-
 
 //        {data?.pages[0].items.length === 0 ? <div>effff</div> :  <div>wefwe</div>}

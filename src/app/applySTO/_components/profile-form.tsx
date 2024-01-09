@@ -30,6 +30,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 import { toast } from '@/components/ui/use-toast';
 import { auth } from '@/auth';
+import { useSession } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const profileFormSchema = z.object({
   username: z
@@ -64,6 +66,8 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 export function ProfileForm() {
+  const session: any = useCurrentUser();
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -76,10 +80,6 @@ export function ProfileForm() {
   });
 
   const onSubmit = async (data: ProfileFormValues) => {
-    // const session = await auth();
-
-   
-
     console.log(data);
     toast({
       title: '신청 완료',
@@ -93,7 +93,7 @@ export function ProfileForm() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        userId: 'clr3m6m5f0006v0zom48t61x4',
+        userId: session.id,
         stId: '5',
         offerPrice: 50000,
         offerQty: 1000,

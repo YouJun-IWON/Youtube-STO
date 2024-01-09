@@ -2,11 +2,36 @@
 
 import * as z from 'zod';
 
-export const NewPasswordSchema = z.object({
-  password: z.string().min(12, {
-    message: '최소 12자 이상이어야 합니다.',
-  }),
-});
+export const NewPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(12, {
+        message: '최소 12자 이상이어야 합니다.',
+      })
+      .max(30, {
+        message: '최대 30자 이하여야 합니다.',
+      })
+      .regex(/[a-z]/, {
+        message: '최소 하나의 영어 소문자를 포함해야 합니다.',
+      })
+      .regex(/[0-9]/, {
+        message: '최소 하나의 숫자를 포함해야 합니다.',
+      })
+      .regex(/[@#$%^&+=~!]/, {
+        message: '최소 하나의 특수기호를 포함해야 합니다.',
+      }),
+    confirmPassword: z.string(),
+  })
+  .refine(
+    (values) => {
+      return values.password === values.confirmPassword;
+    },
+    {
+      message: '비밀번호가 일치하지 않습니다.',
+      path: ['confirmPassword'],
+    }
+  );
 
 export const ResetSchema = z.object({
   email: z.string().email({
@@ -25,6 +50,7 @@ export const LoginSchema = z.object({
   password: z.string().min(1, {
     message: '비밀번호를 입력해주세요.',
   }),
+  code: z.optional(z.string()),
 });
 
 export const registerSchema = z

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Image, Button, Chip } from '@nextui-org/react';
 import { HeartIcon } from '@/components/svgs/heartIcon';
 import React from 'react';
-import { orderbookExample } from '@/data/orderBookExample';
+import { orderbookExample } from '@/test/orderBookExample';
 
 const YoutuberInfo = () => {
   const [liked, setLiked] = React.useState(false);

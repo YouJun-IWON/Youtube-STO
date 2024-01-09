@@ -23,8 +23,6 @@ interface NavbarProps {
 const ActionButton = ({ currentUser }: NavbarProps) => {
   const router = useRouter();
 
-  console.log('ActionButton', currentUser);
-
   return (
     <div>
       <div className='md:hidden'>

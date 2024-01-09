@@ -4,11 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Icons } from '@/components/icons';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import { useSearchParams } from 'next/navigation';
 
 const Social = ({ isPending }: any) => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const onClick = async (provider: 'google') => {
     signIn(provider, {
-      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   };
 

@@ -4,8 +4,8 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { Badge } from '@/components/ui/badge';
 
-import { labels, priorities, statuses } from '@/data/data';
-import { Data } from '@/data/schema';
+import { labels, priorities, statuses } from '@/test/data';
+import { Data } from '@/test/data-schema';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -126,14 +126,21 @@ export const columns: ColumnDef<Data>[] = [
               `${formattedPrice * rate} 원`
             ) : rate > 0 ? (
               <span style={{ color: 'red' }} className='flex'>
-                +{Number(((formattedPrice * rate) / 100).toFixed(0)).toLocaleString()} 원 (+
+                +
+                {Number(
+                  ((formattedPrice * rate) / 100).toFixed(0)
+                ).toLocaleString()}{' '}
+                원 (+
                 {rate}
                 %)
                 <Icons.up className='ml-2 h-4 w-3' />
               </span>
             ) : (
               <span style={{ color: 'blue' }} className='flex'>
-                {Number(((formattedPrice * rate) / 100).toFixed(0)).toLocaleString()} 원 ({rate}
+                {Number(
+                  ((formattedPrice * rate) / 100).toFixed(0)
+                ).toLocaleString()}{' '}
+                원 ({rate}
                 %)
                 <Icons.down className='ml-2 h-4 w-3' />
               </span>
@@ -263,7 +270,7 @@ export const columns: ColumnDef<Data>[] = [
   //   enableHiding: false,
   // },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];

@@ -20,7 +20,7 @@ import { FormError } from '../../_components/form-error';
 import { FormSuccess } from '../../_components/form-success';
 import { ResetSchema } from '@/schemas';
 import Link from 'next/link';
-import { reset } from '@/actions/reset';
+import { reset } from '@/auth-actions/reset';
 import { Icons } from '@/components/icons';
 
 export const ResetForm = () => {

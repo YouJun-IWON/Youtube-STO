@@ -2,14 +2,13 @@
 import React, { useEffect, useState } from 'react';
 
 import CustomFilter from './_components/CustomFilter';
-import { Data } from '@/data/schema';
+import { Data } from '@/test/data-schema';
 import YoutuberCard from './_components/YoutuberCard';
 
 const TopChannel = ({ data }: any) => {
   const isDataEmpty = !Array.isArray(data) || data?.length < 1 || !data;
 
   const [selected, setSelected] = React.useState(0);
-
 
   const [sortedData, setSortedData] = useState([]);
 

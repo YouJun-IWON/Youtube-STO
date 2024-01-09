@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator';
 
-import { ProfileForm } from '@/app/applySTO/profile-form';
+import { ProfileForm } from '@/app/applySTO/_components/profile-form';
 
 
 export default async function SettingsSTO() {

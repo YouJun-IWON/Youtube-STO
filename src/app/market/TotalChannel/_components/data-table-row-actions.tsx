@@ -1,7 +1,7 @@
 'use client';
 import { Row } from '@tanstack/react-table';
 
-import { dataSchema } from '@/data/schema';
+import { dataSchema } from '@/test/data-schema';
 import { Button } from '@nextui-org/react';
 import { HeartIcon } from '@/components/svgs/heartIcon';
 

@@ -2,7 +2,7 @@
 import { Icons } from '@/components/icons';
 import { HeartIcon } from '@/components/svgs/heartIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Data } from '@/data/schema';
+import { Data } from '@/test/data-schema';
 import { Button, Card, CardBody, CardFooter, Chip } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 
