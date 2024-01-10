@@ -7,13 +7,26 @@ import Balance from './_components/(balance)/Balance';
 import History from './_components/(history)/History';
 import OpenOrders from './_components/(openOrders)/OpenOrders';
 import PendingDW from './_components/(pendingDW)/PendingDW';
+import { auth } from '@/auth';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 export const metadata: Metadata = {
   title: 'My STO',
   description: '자신의 Youtube STO 투자내역을 확인하고 관리하세요.',
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await auth();
+
+  const response = await fetch(
+    `http://35.226.148.114:3004/users/balance?userId=${session?.user.id}`
+  );
+
+
+    const data = await response.json()
+
+  console.log('wef', data )
+
   return (
     <>
       <div className='flex-col md:flex'>
@@ -39,7 +52,7 @@ export default function DashboardPage() {
             </TabsContent>
 
             <TabsContent value='Balance' className='space-y-4'>
-              <Balance />
+              <Balance data={data}/>
             </TabsContent>
             <TabsContent value='History' className='space-y-4'>
               <History />

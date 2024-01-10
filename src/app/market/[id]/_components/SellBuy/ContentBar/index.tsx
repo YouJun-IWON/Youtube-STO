@@ -6,7 +6,7 @@ import { perspective, slideIn } from './anim';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 import {Buy} from './Buy';
-import Sell from './Sell';
+import {Sell} from './Sell';
 import SimpleOrder from './SimpleOrder';
 import Receipt from './Receipt';
 

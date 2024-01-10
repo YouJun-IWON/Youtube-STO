@@ -1,9 +1,5 @@
-
-
 const ErrorCard = () => {
-  return (
-    <div>ErrorCard</div>
-  )
-}
+  return <div>Error</div>;
+};
 
-export default ErrorCard
+export default ErrorCard;

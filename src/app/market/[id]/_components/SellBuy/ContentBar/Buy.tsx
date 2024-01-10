@@ -55,7 +55,7 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 const defaultValues: Partial<ProfileFormValues> = {
-  buyPrice: 23700,
+  buyPrice: 0,
   buyAmount: 0,
   totalPrice: 0,
 };

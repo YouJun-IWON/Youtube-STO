@@ -3,9 +3,15 @@ import YoutuberInfo from './_components/YoutuberInfo';
 import Rule from './_components/Rule';
 import OrderBook from './(orderbook)/OrderBook';
 import SellBuy from './_components/SellBuy';
+import { auth } from '@/auth';
 
-const page = ({ params }: { params: { id: number } }) => {
+const page = async({ params }: { params: { id: number } }) => {
+
+  const session : any = await auth();
+  const user = session.user
+
   console.log('id', params.id);
+  
 
   return (
     <section>
@@ -13,7 +19,7 @@ const page = ({ params }: { params: { id: number } }) => {
         <YoutuberInfo />
         <OrderBook />
       </div>
-      <SellBuy />
+      <SellBuy user={user}/>
     </section>
   );
 };

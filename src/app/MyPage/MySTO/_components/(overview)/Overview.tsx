@@ -9,7 +9,7 @@ import {
 import { OverviewText } from '@/app/MyPage/MySTO/_components/(overview)/overview-text';
 import { RecentSales } from '@/app/MyPage/MySTO/_components/(overview)/recent-sales';
 
-const Overview = () => {
+const Overview = async() => {
   return (
     <>
       <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>

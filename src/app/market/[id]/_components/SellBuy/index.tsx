@@ -22,7 +22,7 @@ const menu = {
     }
 }
 
-export default function SellBuy() {
+export default function SellBuy({user} : any) {
     const [isActive, setIsActive] = useState(false);
 
     return (

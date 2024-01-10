@@ -10,7 +10,7 @@ import MyAsset from './holding-rate';
 import GreedRate from './greed-rate';
 import { RecentSales } from './holding-stos';
 
-const Balance = () => {
+const Balance = ({ data }: any) => {
   return (
     <>
       <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
@@ -115,10 +115,10 @@ const Balance = () => {
               </span>
             </div>
             <div className='absolute flex flex-col gap-5 inset-0 items-center justify-center ml-20'>
-             
               <span className='flex items-center gap-5'>
                 {' '}
-                <span className='w-3 h-3 bg-purple-400'></span> <p>BJ ∙ 크리에이터</p>
+                <span className='w-3 h-3 bg-purple-400'></span>{' '}
+                <p>BJ ∙ 크리에이터</p>
               </span>
             </div>
             <MyAsset />

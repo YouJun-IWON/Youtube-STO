@@ -23,7 +23,7 @@ const MarketPrice = () => {
       visible: false,
     });
 
-    root.setThemes([am5themes_Animated.new(root), myTheme]);
+     root.setThemes([am5themes_Animated.new(root), myTheme]);
 
     const stockChart = root.container.children.push(
       am5stock.StockChart.new(root, { paddingRight: 0 })
@@ -88,7 +88,7 @@ const MarketPrice = () => {
     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
     let valueSeries = mainPanel.series.push(
       am5xy.CandlestickSeries.new(root, {
-        name: 'AMCH',
+        name: 'Token',
         clustered: false,
         valueXField: 'Date',
         valueYField: 'Close',
@@ -285,6 +285,8 @@ const MarketPrice = () => {
           previousValue + (Math.random() < 0.5 ? 1 : -1) * Math.random() * 2,
           2
         );
+
+        console.log(value);
 
         let high = lastDataObject.High;
         let low = lastDataObject.Low;

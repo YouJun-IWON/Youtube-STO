@@ -54,38 +54,31 @@ model TwoFactorToken {
   @@unique([email, token])
 }
 
-
 model TwoFactorConfirmation {
-  id      String   @id @default(cuid())
-  
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId])
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
-
 model User {
-  id              String         @id @default(cuid())
-  name            String?
-  email           String?        @unique
-  emailVerified   DateTime?
-  image           String?
-  user_type       User_user_type @default(User)
-  username        String?
-  wallet_addr     String?        @db.VarChar(64)
-  created_at      DateTime       @default(now()) @db.DateTime(0)
-  deleted_at      DateTime?      @db.DateTime(0)
-  updated_at      DateTime       @default(now()) @db.DateTime(0)
-  invitation_code String?
-  active          Boolean        @default(false)
-  identification  String?
-  password        String?        @db.Text
-  isTwoFactorEnabled Boolean @default(false)
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  user_type             User_user_type         @default(User)
+  username              String?
+  wallet_addr           String?                @db.VarChar(64)
+  created_at            DateTime               @default(now()) @db.DateTime(0)
+  deleted_at            DateTime?              @db.DateTime(0)
+  updated_at            DateTime               @default(now()) @db.DateTime(0)
+  invitation_code       String?
+  active                Boolean                @default(false)
+  identification        String?
+  password              String?                @db.Text
+  isTwoFactorEnabled    Boolean                @default(true)
   twoFactorConfirmation TwoFactorConfirmation?
-
-  accounts        Account[]
+  accounts              Account[]
 
   @@index([wallet_addr], map: "wallet_addr")
 }
