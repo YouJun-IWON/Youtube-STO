@@ -7,8 +7,9 @@ import { auth } from '@/auth';
 
 const page = async({ params }: { params: { id: number } }) => {
 
-  const session : any = await auth();
-  const user = session.user
+  // const session : any = await auth();
+  // const user = session.user
+  const user = ''
 
   console.log('id', params.id);
   

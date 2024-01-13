@@ -10,7 +10,9 @@ import { generateVerificationToken } from '@/lib/token';
 import { sendVerificationEmail } from '@/lib/mail';
 
 export const register = async (values: z.infer<typeof registerSchema>) => {
+
   const validatedFields = registerSchema.safeParse(values);
+  
 
   if (!validatedFields.success) {
     return { error: '유효하지 않는 정보입니다.' };
